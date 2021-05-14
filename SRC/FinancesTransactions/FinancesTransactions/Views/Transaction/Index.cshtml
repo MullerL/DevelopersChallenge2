@@ -1,0 +1,62 @@
+﻿@model IEnumerable<FinancesTransactions.Models.TransactionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    <form asp-controller="Transaction" asp-action="UploadFile" method="post"
+          enctype="multipart/form-data">
+
+        <input type="file" name="files" multiple />
+        <button type="submit">Upload File</button>
+    </form>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Memo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Date.ToShortDateString)*@
+                @(item.Date.ToString("dd/MM/yyyy"))
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Amount)*@
+                @(item.Amount.ToString("C"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Memo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
